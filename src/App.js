@@ -7,8 +7,10 @@ const App = () => {
   return (
     <>
       <Header />
-      <MealSummary />
-      <AvailableMeals />
+      <main>
+        <MealSummary />
+        <AvailableMeals />
+      </main>
     </>
   )
 }
