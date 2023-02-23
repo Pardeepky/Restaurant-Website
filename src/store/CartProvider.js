@@ -26,11 +26,36 @@ const CartProvider = (props) => {
   };
 
   const addItemFromCartHandler = (addItem) => {
-   
   };
 
   const removeItemFromCartHandler = (remItem) => {
-    
+    updateTotalAmount(totalAmount - remItem.price);
+    const index = items.findIndex((item) => item.id === remItem.id);
+    const existingCartItem = items[index];
+    console.log("removing item...", existingCartItem);
+    let updatedItems;
+    console.log("before removing", remItem.quantity);
+
+    if (index > -1 && Number(remItem.quantity) > 1) {
+      const updatedItem = {
+        ...existingCartItem,
+        quantity: +remItem.quantity - 1,
+      };
+      console.log("after removing...", updatedItem);
+      updatedItems = [...items];
+      updatedItems[index] = updatedItem;
+
+      updateItems(updatedItems);
+    } else {
+      let changeItems = [...items];
+      updatedItems = [
+        ...changeItems.slice(0, index),
+        ...changeItems.slice(index + 1, items.length),
+      ];
+
+      console.log("if only one item present to remove...", updatedItems);
+      updateItems(updatedItems);
+    }
   };
 
   const cartContext = {
