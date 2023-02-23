@@ -13,6 +13,9 @@ const Cart = (props) => {
     cartContext.removeItem(item);
   };
 
+  const increaseItemCountHandler = (item) => {
+    cartContext.addItemFromCart(item);
+  };
   const data = cartContext.items.map((item) => (
     <CartItem
       id={Math.random().toString()}
@@ -21,6 +24,7 @@ const Cart = (props) => {
       amount={item.quantity}
       price={item.price}
       onRemove={decreaseItemCountHandler.bind(null, item)}
+      onAdd={increaseItemCountHandler.bind(null, item)}
     ></CartItem>
   ));
 

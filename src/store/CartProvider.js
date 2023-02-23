@@ -26,6 +26,18 @@ const CartProvider = (props) => {
   };
 
   const addItemFromCartHandler = (addItem) => {
+    const index = items.findIndex((item) => item.id === addItem.id);
+    const existingCartItem = items[index];
+    let updatedItems;
+
+    const updatedItem = {
+      ...existingCartItem,
+      quantity: +existingCartItem.quantity + 1,
+    };
+    updatedItems = [...items];
+    updatedItems[index] = updatedItem;
+    updateItems(updatedItems);
+    updateTotalAmount(totalAmount + addItem.price);
   };
 
   const removeItemFromCartHandler = (remItem) => {
