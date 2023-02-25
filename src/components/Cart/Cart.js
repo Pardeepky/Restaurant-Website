@@ -9,6 +9,7 @@ const Cart = (props) => {
 
   const totalAmount = `${cartContext.totalAmount.toFixed("2")}`;
   const hasItems = cartContext.items.length > 0;
+
   const decreaseItemCountHandler = (item) => {
     cartContext.removeItem(item);
   };
@@ -16,6 +17,11 @@ const Cart = (props) => {
   const increaseItemCountHandler = (item) => {
     cartContext.addItemFromCart(item);
   };
+
+  const orderItem = () => {
+    console.log('Ordering...')
+  }
+
   const data = cartContext.items.map((item) => (
     <CartItem
       id={Math.random().toString()}
@@ -23,8 +29,8 @@ const Cart = (props) => {
       name={item.name}
       amount={item.quantity}
       price={item.price}
-      onRemove={decreaseItemCountHandler.bind(null, item)}
-      onAdd={increaseItemCountHandler.bind(null, item)}
+      onRemove={() => decreaseItemCountHandler(item)}
+      onAdd={() => increaseItemCountHandler(item)}
     ></CartItem>
   ));
 
@@ -38,7 +44,7 @@ const Cart = (props) => {
       </div>
       <div className={classes.actions}>
         <button className={classes['button--alt']} onClick={props.hideCartHandler}>Close</button>
-        {hasItems && <button className={classes.button}>Order</button>}
+        {hasItems && <button className={classes.button} onClick={orderItem}>Order</button>}
       </div>
     </Modal>
   );
